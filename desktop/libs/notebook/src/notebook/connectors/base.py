@@ -154,6 +154,24 @@ class Notebook(object):
 
     self.data = json.dumps(_data)
 
+  def add_spark_snippet(self, clazz, jars, arguments, files):
+    _data = json.loads(self.data)
+
+    _data['snippets'].append(self._make_snippet({
+        u'type': u'spark',
+        u'status': u'running',
+        u'properties':  {
+          u'files': files,
+          u'class': clazz,
+          u'jars': jars,
+          u'arguments': arguments,
+          u'archives': [],
+        }
+    }))
+    self._add_session(_data, 'spark')
+
+    self.data = json.dumps(_data)
+
   def add_shell_snippet(self, shell_command, arguments, archives, files, env_var, last_executed):
     _data = json.loads(self.data)
 
