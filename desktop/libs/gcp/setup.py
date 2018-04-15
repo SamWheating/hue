@@ -24,6 +24,6 @@ setup(
   description='GoogleCloudPlatform Libraries',
   packages=find_packages('src'),
   package_dir={'': 'src'},
-  install_requires=['setuptools', 'desktop', 'google-cloud', 'google-cloud-storage'],
+  install_requires=['setuptools', 'desktop', 'google-cloud-storage'],
   entry_points={'desktop.sdk.lib': 'gcp=gcp'}
 )
