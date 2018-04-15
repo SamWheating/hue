@@ -40,6 +40,7 @@ DESKTOP_ROOT := $(realpath .)
 include $(ROOT)/Makefile.vars.priv
 
 APPS := core \
+	libs/gcp \
 	libs/aws \
 	libs/hadoop \
 	libs/indexer \

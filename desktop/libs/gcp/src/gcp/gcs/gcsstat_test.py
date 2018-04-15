@@ -46,7 +46,7 @@ def test_from_bucket():
 
 
 def test_from_key():
-  blob = FakeKey('foo', FakeBucket('bar'), 42, 'Thu, 26 Feb 2015 20:42:07 GMT')
+  blob = FakeBlob('foo', FakeBucket('bar'), 42, 'Thu, 26 Feb 2015 20:42:07 GMT')
   s = GCSStat.from_blob(blob)
   eq_('FILE', s.type)
   eq_('foo', s.name)
@@ -55,17 +55,17 @@ def test_from_key():
   eq_(1424983327, s.mtime)
 
   blob.size = None
-  blob.last_modified = None
+  blob.updated = None
   s = GCSStat.from_blob(blob, is_dir=True)
   eq_('DIRECTORY', s.type)
   eq_(0, s.size)
   eq_(0, s.atime)
 
 
-def test_for_s3_root():
+def test_for_gcs_root():
   s = GCSStat.for_gcs_root()
   eq_('DIRECTORY', s.type)
-  eq_('S3', s.name)
+  eq_('GCS', s.name)
   eq_('gs://', s.path)
   eq_(0, s.size)
   eq_(0, s.atime)
@@ -76,9 +76,9 @@ class FakeBucket(object):
     self.name = name
 
 
-class FakeKey(object):
-  def __init__(self, name, bucket, size=None, last_modified=None):
+class FakeBlob(object):
+  def __init__(self, name, bucket, size=None, updated=None):
     self.name = name
     self.bucket = bucket
     self.size = size
-    self.last_modified = last_modified
+    self.updated = updated

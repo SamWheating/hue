@@ -17,6 +17,7 @@ from __future__ import absolute_import
 
 import stat
 import posixpath
+import datetime
 
 class GCSStat(object):
   DIR_MODE = 0777 | stat.S_IFDIR
@@ -77,7 +78,7 @@ class GCSStat(object):
       path = 'gs://%s' % blob.bucket.name
 
     size = blob.size or 0
-    mtime = blob.updated.strftime('%s') if blob.updated else 0
+    mtime = (blob.updated - datetime.datetime(1970,1,1)).total_seconds() if blob.updated else 0
     return cls(name, path, is_dir, size, mtime)
 
   @classmethod

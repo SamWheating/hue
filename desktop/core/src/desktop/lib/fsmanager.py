@@ -22,6 +22,7 @@ import logging
 
 import aws
 from aws.conf import is_enabled as is_s3_enabled
+import gcp
 
 from desktop.lib.fs import ProxyFS
 from hadoop import cluster
@@ -33,6 +34,7 @@ DEFAULT_SCHEMA = 'hdfs'
 FS_GETTERS = {
   "hdfs": cluster.get_hdfs,
   "s3a": aws.get_s3fs if is_s3_enabled() else None
+  "gcs": gcp.get_gcsfs
 }
 
 
