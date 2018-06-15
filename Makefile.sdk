@@ -123,6 +123,10 @@ $(EXT_PY_EGG_TARGETS):
 	  bdist_egg
 	@mkdir -p $(@D) && touch $@
 
+.PHONEY: ext-requirements
+ext-requirements:
+	@if [ -e requirements.txt ]; then $(ENV_PIP) install -r requirements.txt; fi
+
 #
 # ext-clean
 # 	Clean the 3rd party package. This will NOT uninstall it from Desktop.
@@ -143,12 +147,12 @@ $(EXT_PY_CLEAN_TARGETS):
 # 	(2) ext-eggs/*.egg
 #
 .PHONY: ext-env-install
-ext-env-install: ext-eggs $(EXT_PY_ENV_INSTALL_TARGETS)
+ext-env-install: ext-eggs ext-requirements $(EXT_PY_ENV_INSTALL_TARGETS)
+	#@if [ -e requirements.txt]; then $(ENV_PIP) install -r requirements.txt; fi
 	@for i in $(wildcard ext-eggs/*.egg) ; do \
 	  echo "--- Installing $$i into virtual environment" ; \
 	  $(ENV_EASY_INSTALL) -Z -N $$i 2> /dev/null ; \
 	done
-	@if [ -e requirements.txt]; then $(ENV_PIP) install -r requirements.txt; fi
 
 $(EXT_PY_ENV_INSTALL_TARGETS):
 	@echo '--- Installing $(CUR_EXT_PY) into virtual environment'

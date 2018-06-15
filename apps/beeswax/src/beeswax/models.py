@@ -54,7 +54,13 @@ class QueryHistory(models.Model):
   """
   Holds metadata about all queries that have been executed.
   """
-  STATE = Enum('submitted', 'running', 'available', 'failed', 'expired')
+  class STATE(Enum):
+    submitted = 0
+    running = 1
+    available = 2
+    failed = 3
+    expired = 4
+
   SERVER_TYPE = ((BEESWAX, 'Beeswax'), (HIVE_SERVER2, 'Hive Server 2'),
                  (librdbms_dbms.MYSQL, 'MySQL'), (librdbms_dbms.POSTGRESQL, 'PostgreSQL'),
                  (librdbms_dbms.SQLITE, 'sqlite'), (librdbms_dbms.ORACLE, 'oracle'))
