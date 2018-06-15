@@ -14,12 +14,15 @@ boto==2.42.0
 cffi==1.5.2
 configobj
 cryptography==2.0.3
-django-auth-ldap==1.2.0
-django-axes==1.5.0
-django-extensions==1.5.0
-django-nose==1.3
-django-openid-auth==0.5
-djangosaml2==0.13.0
+django-auth-ldap==1.3.0
+django-axes==2.2.0
+django-debug-panel==0.8.3
+django-debug-toolbar==1.9.1
+django-extensions==1.8.0
+django-nose==1.4.5
+django-openid-auth==0.14
+djangomako==1.0.1
+djangosaml2==0.16.11
 enum==0.4.4
 guppy==0.1.10
 httplib2==0.8
@@ -60,3 +63,5 @@ thriftpy==0.3.9
 urllib2_kerberos==0.1.6
 idna==2.6
 google-cloud-storage
+sqlparse
+tablib
