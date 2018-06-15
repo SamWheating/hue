@@ -20,14 +20,15 @@
 # May require download from PyPI or whereever
 
 # Install/download dev tools for SDK into the virtual environment
-.PHONY: $(DEVTOOLS)
-$(DEVTOOLS):
-	$(PIP) install -r requirements-devtools.txt
+.PHONY: devtools
+devtools:
+	$(ENV_PIP) install -r requirements-devtools.txt
 
 $(BLD_DIR):
 	@mkdir -p $@
 
 $(BLD_DIR)/.devtools: $(BLD_DIR)
 	@# If $(DEVTOOLS) are the prerequisites, we\'ll end up rebuilding them everytime.
-	$(MAKE) $(DEVTOOLS)
-	@touch $@
+	$(MAKE) devtools
+	@touch $(BLD_DIR)/.devtools
+
