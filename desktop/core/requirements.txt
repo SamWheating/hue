@@ -61,3 +61,4 @@ urllib2_kerberos==0.1.6
 idna==2.6
 google-cloud-storage
 sqlparse
+tablib
