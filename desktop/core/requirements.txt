@@ -57,7 +57,7 @@ parquet==1.1
 ply==3.9
 py4j==0.9
 pyOpenSSL==17.5.0
-pyasn1==0.1.8
+pyasn1==0.4.4
 pycparser==2.18
 pycrypto==2.6.1
 pycryptodomex==3.4.7
