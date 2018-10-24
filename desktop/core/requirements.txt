@@ -30,7 +30,7 @@ kerberos==1.1.1
 lxml==3.3.6
 markdown
 ndg_httpsclient==0.4.0
-openpyxl==2.3.0-b2
+openpyxl==2.3.1
 ordereddict==1.1
 pam
 parquet==1.1
