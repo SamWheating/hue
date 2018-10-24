@@ -48,11 +48,6 @@ def entry():
 
   if len(sys.argv) > 1:
     prof_id = subcommand = sys.argv[1]
-    #Check if this is a CM managed cluster
-    if os.path.isfile(cm_config_file) and not cm_managed and not skip_reload:
-        print "ALERT: This appears to be a CM Managed environment"
-        print "ALERT: HUE_CONF_DIR must be set when running hue commands in CM Managed environment"
-        print "ALERT: Please run 'hue <command> --cm-managed'"
   else:
     prof_id = str(os.getpid())
 
