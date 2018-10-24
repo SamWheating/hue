@@ -87,3 +87,4 @@ urllib2_kerberos==0.1.6
 urllib3==1.22
 wheel==0.31.0
 zope.interface==4.5.0
+google-cloud-storage
