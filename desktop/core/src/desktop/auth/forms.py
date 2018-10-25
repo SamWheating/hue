@@ -26,7 +26,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _t, ugettext as _
 
 from desktop import conf
-from django.contrib.auth.password_validation import get_default_password_validators
+from useradmin.password_policy import get_password_validators
 
 
 def get_server_choices():
@@ -117,7 +117,7 @@ class UserCreationForm(AuthUserCreationForm):
   """
   password = CharField(label=_t("Password"),
                        widget=PasswordInput(attrs={'class': 'input-large'}),
-                       validators=get_default_password_validators())
+                       validators=get_password_validators())
 
   def __init__(self, data=None, *args, **kwargs):
     if data and 'password' in data:
