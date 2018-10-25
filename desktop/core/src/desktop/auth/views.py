@@ -15,6 +15,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import sys
+sys.path.append("app/hue/apps/useradmin/src/useradmin")
 
 try:
   import oauth2 as oauth

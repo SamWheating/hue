@@ -17,6 +17,9 @@
 
 import datetime
 
+import sys
+sys.path.append("app/hue/apps/useradmin/src/useradmin")
+
 from django.conf import settings
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
