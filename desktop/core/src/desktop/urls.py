@@ -33,11 +33,12 @@ import desktop.lib.metrics.file_reporter
 desktop.lib.metrics.file_reporter.start_file_reporter()
 
 from django.conf import settings
-from django.conf.urls import include, patterns
+from django.conf.urls import include
 from django.contrib import admin
 
 from desktop import appmanager
 from desktop.conf import METRICS, USE_NEW_EDITOR
+from django.conf.urls import url
 
 
 # Django expects handler404 and handler500 to be defined.
@@ -51,129 +52,125 @@ handler500 = 'desktop.views.serve_500_error'
 admin.autodiscover()
 
 # Some django-wide URLs
-dynamic_patterns = patterns('desktop.auth.views',
-  (r'^accounts/login/$', 'dt_login'),
-  (r'^accounts/logout/$', 'dt_logout', {'next_page': '/'}),
-  (r'^profile$', 'profile'),
-  (r'^login/oauth/?$', 'oauth_login'),
-  (r'^login/oauth_authenticated/?$', 'oauth_authenticated'),
-)
+dynamic_patterns = [
+  url(r'^accounts/login/$', 'desktop.auth.views.dt_login'),
+  url(r'^accounts/logout/$', 'desktop.auth.views.dt_logout', {'next_page': '/'}),
+  url(r'^profile$', 'desktop.auth.views.profile'),
+  url(r'^login/oauth/?$', 'desktop.auth.views.oauth_login'),
+  url(r'^login/oauth_authenticated/?$', 'desktop.auth.views.oauth_authenticated'),
+]
+
 
 
 if USE_NEW_EDITOR.get():
-  dynamic_patterns += patterns('desktop.views',
-    (r'^home$','home2'),
-    (r'^home2$','home'),
-    (r'^home_embeddable$','home_embeddable'),
-  )
+  dynamic_patterns += [
+    url(r'^home$','desktop.views.home2'),
+    url(r'^home2$','desktop.views.home'),
+    url(r'^home_embeddable$','desktop.views.home_embeddable'),
+  ]
+
 else:
-  dynamic_patterns += patterns('desktop.views',
-    (r'^home$','home'),
-    (r'^home2$','home2')
-  )
+  dynamic_patterns += [
+    url(r'^home$','desktop.views.home'),
+    url(r'^home2$','desktop.views.home2')
+  ]
 
-dynamic_patterns += patterns('desktop.views',
-  (r'^logs$','log_view'),
-  (r'^desktop/dump_config$','dump_config'),
-  (r'^desktop/download_logs$','download_log_view'),
-  (r'^desktop/get_debug_level','get_debug_level'),
-  (r'^desktop/set_all_debug','set_all_debug'),
-  (r'^desktop/reset_all_debug','reset_all_debug'),
-  (r'^bootstrap.js$', 'bootstrap'), # unused
-
-  (r'^desktop/prefs/(?P<key>\w+)?$', 'prefs'),
-  (r'^desktop/status_bar/?$', 'status_bar'),
-  (r'^desktop/debug/is_alive$','is_alive'),
-  (r'^desktop/debug/is_idle$','is_idle'),
-  (r'^desktop/debug/threads$', 'threads'),
-  (r'^desktop/debug/memory$', 'memory'),
-  (r'^desktop/debug/check_config$', 'check_config'),
-  (r'^desktop/debug/check_config_ajax$', 'check_config_ajax'),
-  (r'^desktop/log_frontend_event$', 'log_frontend_event'),
+dynamic_patterns += [
+  url(r'^logs$','desktop.views.log_view'),
+  url(r'^desktop/dump_config$','desktop.views.dump_config'),
+  url(r'^desktop/download_logs$','desktop.views.download_log_view'),
+  url(r'^desktop/get_debug_level','desktop.views.get_debug_level'),
+  url(r'^desktop/set_all_debug','desktop.views.set_all_debug'),
+  url(r'^desktop/reset_all_debug','desktop.views.reset_all_debug'),
+  url(r'^bootstrap.js$', 'desktop.views.bootstrap'), # unused
+  url(r'^desktop/prefs/(?P<key>\w+)?$', 'desktop.views.prefs'),
+  url(r'^desktop/status_bar/?$', 'desktop.views.status_bar'),
+  url(r'^desktop/debug/is_alive$','desktop.views.is_alive'),
+  url(r'^desktop/debug/is_idle$','desktop.views.is_idle'),
+  url(r'^desktop/debug/threads$', 'desktop.views.threads'),
+  url(r'^desktop/debug/memory$', 'desktop.views.memory'),
+  url(r'^desktop/debug/check_config$', 'desktop.views.check_config'),
+  url(r'^desktop/debug/check_config_ajax$', 'desktop.views.check_config_ajax'),
+  url(r'^desktop/log_frontend_event$', 'desktop.views.log_frontend_event'),
+  ]
 
   # Mobile
-  (r'^assist_m', 'assist_m'),
+  url(r'^assist_m', 'desktop.views.assist_m'),
   # Responsive
-  (r'^responsive', 'responsive'),
+  url(r'^responsive', 'desktop.views.responsive'),
 
   # KO components, change to doc?name=ko_editor or similar
-  (r'^ko_editor', 'ko_editor'),
-  (r'^ko_metastore', 'ko_metastore'),
+  url(r'^ko_editor', 'desktop.views.ko_editor'),
+  url(r'^ko_metastore', 'desktop.views.ko_metastore'),
 
   # Jasmine
-  (r'^jasmine', 'jasmine'),
+  url(r'^jasmine', 'desktop.views.jasmine'),
 
   # Unsupported browsers
-  (r'^boohoo$','unsupported'),
+  url(r'^boohoo$','desktop.views.unsupported'),
 
   # Top level web page!
-  (r'^$', 'index'),
+  url(r'^$', 'desktop.views.index'),
 )
 
-dynamic_patterns += patterns('desktop.api',
+dynamic_patterns += [
   # Tags
-  (r'^desktop/api/tag/add_tag$', 'add_tag'),
-  (r'^desktop/api/tag/remove_tag$', 'remove_tag'),
-  (r'^desktop/api/doc/tag$', 'tag'),
-  (r'^desktop/api/doc/update_tags$', 'update_tags'),
-  (r'^desktop/api/doc/get$', 'get_document'),
+  url(r'^desktop/api/tag/add_tag$', 'desktop.api.add_tag'),
+  url(r'^desktop/api/tag/remove_tag$', 'desktop.api.remove_tag'),
+  url(r'^desktop/api/doc/tag$', 'desktop.api.tag'),
+  url(r'^desktop/api/doc/update_tags$', 'desktop.api.update_tags'),
+  url(r'^desktop/api/doc/get$', 'desktop.api.get_document'),
 
   # Permissions
-  (r'^desktop/api/doc/update_permissions', 'update_permissions'),
-)
+  url(r'^desktop/api/doc/update_permissions', 'update_permissions'),
+]
 
-dynamic_patterns += patterns('desktop.api2',
-  (r'^desktop/api2/doc/open?$', 'open_document'),  # To keep before get_document
-  (r'^desktop/api2/docs/?$', 'search_documents'),  # search documents for current user
-  (r'^desktop/api2/doc/?$', 'get_document'),  # get doc/dir by path or UUID
+dynamic_patterns += [
+  url(r'^desktop/api2/doc/open?$', 'desktop.api2.open_document'),  # To keep before get_document
+  url(r'^desktop/api2/docs/?$', 'desktop.api2.search_documents'),  # search documents for current user
+  url(r'^desktop/api2/doc/?$', 'desktop.api2.get_document'),  # get doc/dir by path or UUID
 
-  (r'^desktop/api2/doc/move/?$', 'move_document'),
-  (r'^desktop/api2/doc/mkdir/?$', 'create_directory'),
-  (r'^desktop/api2/doc/update/?$', 'update_document'),
-  (r'^desktop/api2/doc/delete/?$', 'delete_document'),
-  (r'^desktop/api2/doc/restore/?$', 'restore_document'),
-  (r'^desktop/api2/doc/share/?$', 'share_document'),
+  url(r'^desktop/api2/doc/move/?$', 'desktop.api2.move_document'),
+  url(r'^desktop/api2/doc/mkdir/?$', 'desktop.api2.create_directory'),
+  url(r'^desktop/api2/doc/update/?$', 'desktop.api2.update_document'),
+  url(r'^desktop/api2/doc/delete/?$', 'desktop.api2.delete_document'),
+  url(r'^desktop/api2/doc/restore/?$', 'desktop.api2.restore_document'),
+  url(r'^desktop/api2/doc/share/?$', 'desktop.api2.share_document'),
 
-  (r'^desktop/api2/doc/export/?$', 'export_documents'),
-  (r'^desktop/api2/doc/import/?$', 'import_documents'),
+  url(r'^desktop/api2/doc/export/?$', 'desktop.api2.export_documents'),
+  url(r'^desktop/api2/doc/import/?$', 'desktop.api2.import_documents'),
 
-  (r'^desktop/api/search/entities/?$', 'search_entities'),
-  (r'^desktop/api/search/entities_interactive/?$', 'search_entities_interactive'),
-)
+  url(r'^desktop/api/search/entities/?$', 'desktop.api2.search_entities'),
+  url(r'^desktop/api/search/entities_interactive/?$', 'desktop.api2.search_entities_interactive'),
+]
 
 # Default Configurations
-dynamic_patterns += patterns('desktop.configuration.api',
-  (r'^desktop/api/configurations/?$', 'default_configurations'),
-  (r'^desktop/api/configurations/user/?$', 'app_configuration_for_user'),
-  (r'^desktop/api/configurations/delete/?$', 'delete_default_configuration'),
-)
+dynamic_patterns += [
+  url(r'^desktop/api/configurations/?$', 'desktop.configuration.api.default_configurations'),
+  url(r'^desktop/api/configurations/user/?$', 'desktop.configuration.api.app_configuration_for_user'),
+  url(r'^desktop/api/configurations/delete/?$', 'desktop.configuration.api.delete_default_configuration'),
+]
 
-dynamic_patterns += patterns('useradmin.views',
-  (r'^desktop/api/users/autocomplete', 'list_for_autocomplete'),
-)
+dynamic_patterns += [url(r'^desktop/api/users/autocomplete', 'useradmin.views.list_for_autocomplete')]
 
 # Metrics specific
 if METRICS.ENABLE_WEB_METRICS.get():
-  dynamic_patterns += patterns('',
-    (r'^desktop/metrics/', include('desktop.lib.metrics.urls'))
-  )
+  dynamic_patterns += [url(r'^desktop/metrics/', include('desktop.lib.metrics.urls')]
 
-dynamic_patterns += patterns('',
-  (r'^admin/', include(admin.site.urls)),
-)
+dynamic_patterns += [url(r'^admin/', include(admin.site.urls)]
 
 static_patterns = []
 
 # SAML specific
 if settings.SAML_AUTHENTICATION:
-  static_patterns.append((r'^saml2/', include('libsaml.urls')))
+  static_patterns.append(url(r'^saml2/', include('libsaml.urls')))
 
 # OpenId specific
 if settings.OPENID_AUTHENTICATION:
-    static_patterns.append((r'^openid/', include('libopenid.urls')))
+    static_patterns.append(url(r'^openid/', include('libopenid.urls')))
 
 if settings.OAUTH_AUTHENTICATION:
-  static_patterns.append((r'^oauth/', include('liboauth.urls')))
+  static_patterns.append(url(r'^oauth/', include('liboauth.urls')))
 
 # Root each app at /appname if they have a "urls" module
 for app in appmanager.DESKTOP_MODULES:
@@ -192,7 +189,7 @@ static_patterns.append(
       { 'document_root': settings.STATIC_ROOT })
 )
 
-urlpatterns = patterns('', *static_patterns) + dynamic_patterns
+urlpatterns = static_patterns + dynamic_patterns
 
 for x in dynamic_patterns:
   logging.debug("Dynamic pattern: %s" % (x,))
