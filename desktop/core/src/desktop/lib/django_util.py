@@ -25,7 +25,7 @@ import datetime
 
 from django.conf import settings
 from django.core import urlresolvers, serializers
-from django.core.context_processors import csrf
+from django.template.context_processors import csrf
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.http import QueryDict, HttpResponse, HttpResponseRedirect

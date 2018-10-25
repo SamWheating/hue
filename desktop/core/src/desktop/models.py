@@ -25,7 +25,6 @@ import uuid
 from itertools import chain
 
 from django.contrib.auth import models as auth_models
-# from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.contenttypes.models import ContentType
