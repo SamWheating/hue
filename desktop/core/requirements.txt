@@ -81,7 +81,7 @@ simplejson==3.15.0
 six==1.11.0
 sqlparse==0.2.0
 tablib==0.10.0
-thrift==0.9.1
+thrift==0.11.0
 thriftpy==0.3.9
 urllib2_kerberos==0.1.6
 urllib3==1.22
