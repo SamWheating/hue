@@ -1057,7 +1057,7 @@ class Document2(models.Model):
 
   parent_directory = models.ForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.CASCADE)
 
-  doc = GenericRelation(Document, related_name='doc_doc') # Compatibility with Hue 3
+  doc = GenericRelation(Document)  #, related_name='doc_doc') # Compatibility with Hue 3
 
   objects = Document2Manager()
 
