@@ -92,7 +92,7 @@ dynamic_patterns += [
   url(r'^desktop/debug/check_config$', 'desktop.views.check_config'),
   url(r'^desktop/debug/check_config_ajax$', 'desktop.views.check_config_ajax'),
   url(r'^desktop/log_frontend_event$', 'desktop.views.log_frontend_event'),
-  ]
+  
 
   # Mobile
   url(r'^assist_m', 'desktop.views.assist_m'),
@@ -111,7 +111,7 @@ dynamic_patterns += [
 
   # Top level web page!
   url(r'^$', 'desktop.views.index'),
-)
+]
 
 dynamic_patterns += [
   # Tags
