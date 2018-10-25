@@ -1,6 +1,6 @@
 Babel==2.5.1
 BabelDjango==0.2.2
-Django==1.11
+Django==1.8.19
 Mako==1.0.7
 MarkupSafe==0.9.3
 MySQL-python==1.2.5
