@@ -155,9 +155,9 @@ dynamic_patterns += [url(r'^desktop/api/users/autocomplete', 'useradmin.views.li
 
 # Metrics specific
 if METRICS.ENABLE_WEB_METRICS.get():
-  dynamic_patterns += [url(r'^desktop/metrics/', include('desktop.lib.metrics.urls')]
+  dynamic_patterns += [url(r'^desktop/metrics/', include('desktop.lib.metrics.urls'))]
 
-dynamic_patterns += [url(r'^admin/', include(admin.site.urls)]
+dynamic_patterns += [url(r'^admin/', include(admin.site.urls))]
 
 static_patterns = []
 
@@ -180,7 +180,7 @@ for app in appmanager.DESKTOP_MODULES:
     else:
       namespace = {}
     if namespace or app in appmanager.DESKTOP_APPS:
-      dynamic_patterns.extend( patterns('', ('^' + re.escape(app.name) + '/', include(app.urls, **namespace))) )
+      dynamic_patterns.extend(url('^' + re.escape(app.name) + '/', include(app.urls, **namespace)))
       app.urls_imported = True
 
 static_patterns.append(
