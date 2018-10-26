@@ -62,4 +62,3 @@ idna==2.6
 google-cloud-storage
 sqlparse
 tablib
-libtidy
